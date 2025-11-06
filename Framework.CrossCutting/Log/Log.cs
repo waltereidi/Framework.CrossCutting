@@ -8,5 +8,6 @@ namespace Framework.CrossCutting.Log
 {
     public class Log
     {
+        public int GetNumber() => 1;
     }
 }
