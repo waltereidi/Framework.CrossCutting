@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Framework.CrossCutting.Log
 {
-    internal class Log
+    public class Log
     {
     }
 }
