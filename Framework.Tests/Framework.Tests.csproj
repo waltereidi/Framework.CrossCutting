@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Google\Framework.Google.csproj" />
     <ProjectReference Include="..\Framework.PdfPig\Framework.PdfPig.csproj" />
   </ItemGroup>
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.PdfPig", "Framewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Tests", "Framework.Tests\Framework.Tests.csproj", "{620CF473-0FEB-4AB9-B270-579FD35E8219}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Google", "Framework.Google\Framework.Google.csproj", "{89E1862D-8ABE-43F5-AE56-606C238DAC44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{620CF473-0FEB-4AB9-B270-579FD35E8219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{620CF473-0FEB-4AB9-B270-579FD35E8219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{620CF473-0FEB-4AB9-B270-579FD35E8219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89E1862D-8ABE-43F5-AE56-606C238DAC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E1862D-8ABE-43F5-AE56-606C238DAC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E1862D-8ABE-43F5-AE56-606C238DAC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E1862D-8ABE-43F5-AE56-606C238DAC44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
