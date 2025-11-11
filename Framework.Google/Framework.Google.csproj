@@ -12,4 +12,8 @@
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.72.0.3944" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

@@ -14,9 +14,9 @@ namespace Framework.Tests.GoogleTest
             _service = new GoogleDriveAPI(base._projectDir.FullName);
         }
         [Fact]
-        public void TestAPI()
+        public void TestConfiguration()
         {
-            _service.GetDrive();
+            _service.GetDriveFiles();
 
         }
 
