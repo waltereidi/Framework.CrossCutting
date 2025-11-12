@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.PdfPig", "Framewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Tests", "Framework.Tests\Framework.Tests.csproj", "{620CF473-0FEB-4AB9-B270-579FD35E8219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Google", "Framework.Google\Framework.Google.csproj", "{89E1862D-8ABE-43F5-AE56-606C238DAC44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkGoogleApi", "FrameworkGoogleApi\FrameworkGoogleApi.csproj", "{89E1862D-8ABE-43F5-AE56-606C238DAC44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

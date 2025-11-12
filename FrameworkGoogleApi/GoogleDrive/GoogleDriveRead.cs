@@ -1,15 +1,16 @@
-﻿using Framework.Google.Configuration;
+﻿using FrameworkGoogleApi.Configuration;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 
-public class GoogleDriveAPI : GoogleCredentialsSetup
+
+namespace FrameworkGoogleApi.GoogleDrive
+{
+    public class GoogleDriveRead : GoogleCredentialsSetup
 {
     private string _pageToken { get; set; }
-    public GoogleDriveAPI() : base()
+    public GoogleDriveRead() 
     { 
-    }
-    public GoogleDriveAPI(string testConfigDir) : base(testConfigDir)
-    {
+        _pageToken = string.Empty;
     }
     public IEnumerable<Google.Apis.Drive.v3.Data.File> GetDriveFiles()
     {
@@ -17,15 +18,19 @@ public class GoogleDriveAPI : GoogleCredentialsSetup
         var service = new DriveService(new BaseClientService.Initializer()
         {
             HttpClientInitializer = base.GetCredentials(),
-            ApplicationName = "MyDriveApp",
+            ApplicationName = "",
         });
+
         var request = service.Files.List();
         request.PageSize = 50;
         request.PageToken = _pageToken;
-
+        
         var result = request.Execute();
-
+        
         return result.Files;
-
     }
+
+
+
+}
 }

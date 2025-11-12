@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FrameworkGoogleApi.GoogleDrive;
+using FrameworkGoogleApi.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +10,29 @@ namespace Framework.Tests.GoogleTest
 {
     public class GoogleDriveAPITest : Configuration
     {
-        private readonly GoogleDriveAPI _service;
-        public GoogleDriveAPITest() :base("Framework.Google" , "Configuration")
+        private readonly GoogleDriveRead _serviceRead;
+        public GoogleDriveAPITest() :base("FrameworkGoogleApi" , "Configuration")
         {
-            _service = new GoogleDriveAPI(base._projectDir.FullName);
+            _serviceRead = new GoogleDriveRead();
         }
         [Fact]
         public void TestConfiguration()
         {
-            _service.GetDriveFiles();
+            var result = _serviceRead.GetDriveFiles();
+            Assert.NotNull(result);
+        }
+        [Fact]
+        public void TestDownload()
+        {
 
+            var result = _serviceRead.GetDriveFiles();
+            var file = result.First();
+            
+            IGoogleDriveDownloadStrategy downloadService = new GoogleDriveDownload(file,base._fileOutputDir);
+
+
+            var fi = downloadService.Start();
+            Assert.True(fi.Exists); 
         }
 
     }
