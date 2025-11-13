@@ -19,6 +19,10 @@ namespace Framework.Tests.GoogleTest
         public void TestConfiguration()
         {
             var result = _serviceRead.GetDriveFiles();
+            var result2 = _serviceRead.GetDriveFiles();
+            var result3 = _serviceRead.GetDriveFiles();
+            var result4 = _serviceRead.GetDriveFiles();
+
             Assert.NotNull(result);
         }
         [Fact]

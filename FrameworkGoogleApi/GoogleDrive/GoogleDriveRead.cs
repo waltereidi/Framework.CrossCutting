@@ -26,7 +26,7 @@ namespace FrameworkGoogleApi.GoogleDrive
         request.PageToken = _pageToken;
         
         var result = request.Execute();
-        
+        _pageToken = result.NextPageToken;
         return result.Files;
     }
 
