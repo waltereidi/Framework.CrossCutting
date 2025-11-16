@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.CrossCutting", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Quartz", "Framework.Quartz\Framework.Quartz.csproj", "{552832BE-8D85-44C8-B88E-BFBAA6DAD7F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.MicroservicesManager", "Framework.MicroservicesManager\Framework.MicroservicesManager.csproj", "{0D9C4404-A3B5-4DDE-B00C-40E5547A8401}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.PdfPig", "Framework.PdfPig\Framework.PdfPig.csproj", "{169DBF37-6A40-40BA-975B-B39F390F01C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Tests", "Framework.Tests\Framework.Tests.csproj", "{620CF473-0FEB-4AB9-B270-579FD35E8219}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkGoogleApi", "FrameworkGoogleApi\FrameworkGoogleApi.csproj", "{89E1862D-8ABE-43F5-AE56-606C238DAC44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Twillio", "Framework.Twillio\Framework.Twillio.csproj", "{A1468326-4C4B-4306-B74F-28F98E9CFB40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.MicroservicesManagerApi", "Framework.MicroservicesManagerApi\Framework.MicroservicesManagerApi.csproj", "{12A96DF6-7F7D-4C3B-B4AA-311B77854C0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{552832BE-8D85-44C8-B88E-BFBAA6DAD7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{552832BE-8D85-44C8-B88E-BFBAA6DAD7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{552832BE-8D85-44C8-B88E-BFBAA6DAD7F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D9C4404-A3B5-4DDE-B00C-40E5547A8401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D9C4404-A3B5-4DDE-B00C-40E5547A8401}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D9C4404-A3B5-4DDE-B00C-40E5547A8401}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D9C4404-A3B5-4DDE-B00C-40E5547A8401}.Release|Any CPU.Build.0 = Release|Any CPU
 		{169DBF37-6A40-40BA-975B-B39F390F01C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{169DBF37-6A40-40BA-975B-B39F390F01C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{169DBF37-6A40-40BA-975B-B39F390F01C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{A1468326-4C4B-4306-B74F-28F98E9CFB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1468326-4C4B-4306-B74F-28F98E9CFB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1468326-4C4B-4306-B74F-28F98E9CFB40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A96DF6-7F7D-4C3B-B4AA-311B77854C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A96DF6-7F7D-4C3B-B4AA-311B77854C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A96DF6-7F7D-4C3B-B4AA-311B77854C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A96DF6-7F7D-4C3B-B4AA-311B77854C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
