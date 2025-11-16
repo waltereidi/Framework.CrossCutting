@@ -1,38 +1,31 @@
-using Microsoft.EntityFrameworkCore.Metadata;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var factory = new ConnectionFactory { HostName = "localhost" };
+using var connection = await factory.CreateConnectionAsync();
+using var channel = await connection.CreateChannelAsync();
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+await channel.ExchangeDeclareAsync(exchange: "logs",
+    type: ExchangeType.Fanout);
 
-var app = builder.Build();
+// declare a server-named queue
+QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
+string queueName = queueDeclareResult.QueueName;
+await channel.QueueBindAsync(queue: queueName, exchange: "logs", routingKey: string.Empty);
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+Console.WriteLine(" [*] Waiting for logs.");
+
+var consumer = new AsyncEventingBasicConsumer(channel);
+consumer.ReceivedAsync += (model, ea) =>
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-builder.Services.AddSingleton<IModel, IModel>();
-ConnectionFactory factory = new ConnectionFactory();
-// "guest"/"guest" by default, limited to localhost connections
-factory.UserName = "root";
-factory.Password = "root";
-factory.VirtualHost = ConnectionFactory.DefaultVHost;
-factory.HostName = "localhost";
-factory.Port = AmqpTcpEndpoint.UseDefaultPort;
+    byte[] body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    Console.WriteLine($" [x] {message}");
+    return Task.CompletedTask;
+};
 
-IConnection conn = await factory.CreateConnectionAsync();
+await channel.BasicConsumeAsync(queueName, autoAck: true, consumer: consumer);
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
-
-app.Run();
+Console.WriteLine(" Press [enter] to exit.");
+Console.ReadLine();

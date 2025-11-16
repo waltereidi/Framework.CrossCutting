@@ -6,10 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>d634daa9-57c5-4f42-9ce0-bad969f0b61f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+    <Folder Include="DTO\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="RabbitMQConfiguration\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
   </ItemGroup>

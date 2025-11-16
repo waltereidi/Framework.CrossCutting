@@ -1,0 +1,6 @@
+services:
+  framework.microservicesmanagerapi:
+    image: ${DOCKER_REGISTRY-}frameworkmicroservicesmanagerapi
+    build:
+      context: .
+      dockerfile: Framework.MicroservicesManagerApi/Dockerfile
