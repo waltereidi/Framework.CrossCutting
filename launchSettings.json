@@ -1,11 +1,13 @@
 {
   "profiles": {
-    "Docker Compose": {
+    "Docker Compose Container": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "launchUrl": "swagger",
       "serviceActions": {
         "framework.microservicesmanagerapi": "StartDebugging"
       }
+
     }
   }
 }

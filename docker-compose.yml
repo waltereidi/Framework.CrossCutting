@@ -4,3 +4,22 @@ services:
     build:
       context: .
       dockerfile: Framework.MicroservicesManagerApi/Dockerfile
+    environment:
+      - RABBITMQ__HOST=rabbitmq
+      - RABBITMQ__PORT=5672
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: always
+
+volumes:
+  rabbitmq_data:

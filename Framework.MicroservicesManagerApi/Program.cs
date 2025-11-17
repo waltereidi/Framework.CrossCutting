@@ -1,10 +1,69 @@
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
+//using RabbitMQ.Client;
+//using RabbitMQ.Client.Events;
+//using System.Text;
 
-var factory = new ConnectionFactory { HostName = "localhost" };
+//var factory = new ConnectionFactory { 
+//    HostName = "rabbitmq",
+//    Password = "admin",
+//    UserName = "admin",
+
+//};
+//using var connection = await factory.CreateConnectionAsync();
+//using var channel = await connection.CreateChannelAsync();
+
+//await channel.ExchangeDeclareAsync(exchange: "logs",
+//    type: ExchangeType.Fanout);
+
+//// declare a server-named queue
+//QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
+//string queueName = queueDeclareResult.QueueName;
+//await channel.QueueBindAsync(queue: queueName, exchange: "logs", routingKey: string.Empty);
+
+//Console.WriteLine(" [*] Waiting for logs.");
+
+//var consumer = new AsyncEventingBasicConsumer(channel);
+//consumer.ReceivedAsync += (model, ea) =>
+//{
+//    byte[] body = ea.Body.ToArray();
+//    var message = Encoding.UTF8.GetString(body);
+//    Console.WriteLine($" [x] {message}");
+//    return Task.CompletedTask;
+//};
+
+//await channel.BasicConsumeAsync(queueName, autoAck: true, consumer: consumer);
+
+//Console.WriteLine(" Press [enter] to exit.");
+//Console.ReadLine();
+using RabbitMQ.Client;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+var factory = new ConnectionFactory
+{
+    HostName = "rabbitmq",
+    Password = "admin",
+    UserName = "admin",
+
+};
 using var connection = await factory.CreateConnectionAsync();
 using var channel = await connection.CreateChannelAsync();
+
 
 await channel.ExchangeDeclareAsync(exchange: "logs",
     type: ExchangeType.Fanout);
@@ -14,18 +73,11 @@ QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
 string queueName = queueDeclareResult.QueueName;
 await channel.QueueBindAsync(queue: queueName, exchange: "logs", routingKey: string.Empty);
 
-Console.WriteLine(" [*] Waiting for logs.");
+app.UseHttpsRedirection();
 
-var consumer = new AsyncEventingBasicConsumer(channel);
-consumer.ReceivedAsync += (model, ea) =>
-{
-    byte[] body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine($" [x] {message}");
-    return Task.CompletedTask;
-};
+app.UseAuthorization();
 
-await channel.BasicConsumeAsync(queueName, autoAck: true, consumer: consumer);
+app.MapControllers();
 
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();
+app.Run();
+
