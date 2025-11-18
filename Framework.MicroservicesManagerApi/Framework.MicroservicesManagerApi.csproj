@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -10,10 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="RabbitMQConfiguration\" />
   </ItemGroup>
 
   <ItemGroup>

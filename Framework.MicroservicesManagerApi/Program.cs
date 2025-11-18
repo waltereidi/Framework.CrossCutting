@@ -34,7 +34,9 @@
 
 //Console.WriteLine(" Press [enter] to exit.");
 //Console.ReadLine();
+using Framework.MicroservicesManagerApi.DependencyInjection;
 using RabbitMQ.Client;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,24 +56,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var factory = new ConnectionFactory
-{
-    HostName = "rabbitmq",
-    Password = "admin",
-    UserName = "admin",
 
-};
-using var connection = await factory.CreateConnectionAsync();
-using var channel = await connection.CreateChannelAsync();
+//using var connection = await factory.CreateConnectionAsync();
+var channel = await RabbitMqConnectionSingleton.CreateChannelAsync();
 
-
-await channel.ExchangeDeclareAsync(exchange: "logs",
-    type: ExchangeType.Fanout);
-
-// declare a server-named queue
-QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
-string queueName = queueDeclareResult.QueueName;
-await channel.QueueBindAsync(queue: queueName, exchange: "logs", routingKey: string.Empty);
+await channel.ExchangeDeclareAsync(exchange: "LivrosExpo", type: ExchangeType.Fanout);
+await channel.ExchangeDeclareAsync(exchange: "FileStorage", type: ExchangeType.Fanout);
 
 app.UseHttpsRedirection();
 
