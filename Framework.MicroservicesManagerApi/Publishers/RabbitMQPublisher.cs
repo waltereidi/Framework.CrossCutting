@@ -1,0 +1,41 @@
+﻿using Framework.MicroservicesManagerApi.Interfaces;
+using NLog.Web;
+using RabbitMQ.Client;
+using System.ComponentModel.DataAnnotations;
+
+namespace Framework.MicroservicesManagerApi.Publishers
+{
+    public abstract class RabbitMQPublisher : IRabbitMQPublisher
+    {
+        protected string _queueName;
+        protected IChannel _channel; 
+        public RabbitMQPublisher(IChannel channel , string queueName )
+        { 
+            _queueName = queueName;
+            _channel = channel;
+        }
+        public virtual void PublishAsync()
+        {
+            try
+            {
+                _channel.BasicPublishAsync(
+                exchange: _queueName,
+                routingKey: GetRoutingKey(),
+                body: GetBody());
+            }
+            catch (Exception ex)
+            {
+                var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+                logger.Info("Starting application...");
+            }
+        }
+        protected virtual string GetRoutingKey()
+            => string.Empty;
+        protected virtual byte[] GetBody()
+        {
+            return System.Text.Encoding.UTF8.GetBytes(GetBodyString());
+        }
+
+        protected abstract string? GetBodyString();
+    }
+}

@@ -17,9 +17,12 @@ namespace Framework.AuthApi.Controllers
             _logger = logger;
             _connection = RabbitMqConnectionSingleton.CreateChannelAsync().Result;
         }
+        [HttpGet]
         public GenericResponse RequestFile()
         {
+
             return new GenericResponse();
         }
+
     }
 }
