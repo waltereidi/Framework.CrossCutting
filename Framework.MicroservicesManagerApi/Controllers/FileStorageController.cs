@@ -1,5 +1,8 @@
 using Framework.MicroservicesManagerApi.DependencyInjection;
 using Framework.MicroservicesManagerApi.DTO;
+using Framework.MicroservicesManagerApi.Interfaces;
+using Framework.MicroservicesManagerApi.Publishers;
+using Framework.MicroservicesManagerApi.Publishers.MessageTemplate;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
 using System.Text;
@@ -11,16 +14,19 @@ namespace Framework.AuthApi.Controllers
     public class FileStorageController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IChannel _connection;
+        private readonly IRabbitMQPublisher _publisher; 
         public FileStorageController(ILogger<FileStorageController> logger)
         {
             _logger = logger;
-            _connection = RabbitMqConnectionSingleton.CreateChannelAsync().Result;
+            var channel = RabbitMqConnectionSingleton.CreateChannelAsync().Result;
+            _publisher = new FileStoragePublisher(channel );
         }
         [HttpGet]
-        public GenericResponse RequestFile()
+        public GenericResponse RequestFile(string id )
         {
-
+            IRabbitMQMessage message = new FileRequest( id );
+            var e = message.GetContent();
+            _publisher.PublishAsync(message);
             return new GenericResponse();
         }
 

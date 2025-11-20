@@ -14,14 +14,14 @@ namespace Framework.MicroservicesManagerApi.Publishers
             _queueName = queueName;
             _channel = channel;
         }
-        public virtual void PublishAsync()
+        public virtual void PublishAsync(IRabbitMQMessage m)
         {
             try
             {
                 _channel.BasicPublishAsync(
                 exchange: _queueName,
                 routingKey: GetRoutingKey(),
-                body: GetBody());
+                body: m.GetContent() );
             }
             catch (Exception ex)
             {
@@ -31,11 +31,7 @@ namespace Framework.MicroservicesManagerApi.Publishers
         }
         protected virtual string GetRoutingKey()
             => string.Empty;
-        protected virtual byte[] GetBody()
-        {
-            return System.Text.Encoding.UTF8.GetBytes(GetBodyString());
-        }
 
-        protected abstract string? GetBodyString();
+        
     }
 }

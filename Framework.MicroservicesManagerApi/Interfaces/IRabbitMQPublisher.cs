@@ -2,6 +2,6 @@
 {
     public interface IRabbitMQPublisher
     {
-        void PublishAsync();
+        void PublishAsync(IRabbitMQMessage body);
     }
 }
