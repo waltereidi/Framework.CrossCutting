@@ -7,6 +7,15 @@ services:
     environment:
       - RABBITMQ__HOST=rabbitmq
       - RABBITMQ__PORT=5672
+    
+  framework.filestorageapi:
+    image: ${DOCKER_REGISTRY-}frameworkfilestorageapi
+    build:
+      context: .
+      dockerfile: Framework.FileStorageApi/Dockerfile
+    environment:
+      - RABBITMQ__HOST=rabbitmq
+      - RABBITMQ__PORT=5672
 
   rabbitmq:
     image: rabbitmq:3.12-management

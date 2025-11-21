@@ -1,0 +1,6 @@
+@Framework.FileStorageApi_HostAddress = http://localhost:5198
+
+GET {{Framework.FileStorageApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
