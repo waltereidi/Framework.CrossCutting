@@ -8,23 +8,6 @@
         "framework.microservicesmanagerapi": "StartDebugging",
         "framework.filestorageapi": "StartDebugging"
       }
-    },
-    "Docker Compose MicroServicesManager": {
-      "commandName": "DockerCompose",
-      "commandVersion": "1.0",
-      "launchUrl": "swagger",
-      "serviceActions": {
-        "framework.microservicesmanagerapi": "StartDebugging"
-      }
-    },
-    "Docker Compose FileStorage": {
-      "commandName": "DockerCompose",
-      "commandVersion": "1.0",
-      "launchUrl": "swagger",
-      "serviceActions": {
-        "framework.filestorageapi": "StartDebugging"
-        }
-
-      } 
+    }
     }
 }
