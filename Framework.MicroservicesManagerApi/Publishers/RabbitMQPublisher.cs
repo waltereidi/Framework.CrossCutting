@@ -19,8 +19,8 @@ namespace Framework.MicroservicesManagerApi.Publishers
             try
             {
                 _channel.BasicPublishAsync(
-                exchange: _queueName,
-                routingKey: GetRoutingKey(),
+                exchange: GetExchange(),
+                routingKey: _queueName,
                 body: m.GetContent() );
             }
             catch (Exception ex)
@@ -29,7 +29,7 @@ namespace Framework.MicroservicesManagerApi.Publishers
                 logger.Info("Starting application...");
             }
         }
-        protected virtual string GetRoutingKey()
+        protected virtual string GetExchange()
             => string.Empty;
 
         

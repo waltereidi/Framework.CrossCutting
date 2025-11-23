@@ -26,7 +26,7 @@ public class RabbitMqConsumerService : BackgroundService
 
         // Declarar fila
         await channel.QueueDeclareAsync(
-            queue: "fila_teste",
+            queue: "FileStorage",
             durable: true,
             exclusive: false,
             autoDelete: false
@@ -49,7 +49,7 @@ public class RabbitMqConsumerService : BackgroundService
 
         // Inicia o consumo
         await channel.BasicConsumeAsync(
-            queue: "fila_teste",
+            queue: "FileStorage",
             autoAck: false,
             consumer: consumer
         );

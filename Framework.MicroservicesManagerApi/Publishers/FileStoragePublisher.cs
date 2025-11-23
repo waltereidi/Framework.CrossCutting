@@ -6,7 +6,7 @@ namespace Framework.MicroservicesManagerApi.Publishers
     {
         public FileStoragePublisher(IChannel channel) : base(channel, "FileStorage")
         {
-
+            var e = channel.CurrentQueue;
         }
 
     }
