@@ -60,7 +60,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 //using var connection = await factory.CreateConnectionAsync();
 var channel = await RabbitMqConnectionSingleton.CreateChannelAsync();
 

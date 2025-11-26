@@ -8,16 +8,20 @@ namespace BuildBlocksRabbitMq.Events
 {
     public class RabbitMQEventBus : IEventBus
     {
-        private readonly RabbitMQExtensions _producer;
+        //private readonly RabbitMQExtensions _producer;
 
-        public RabbitMQEventBus(RabbitMQExtensions producer)
-        {
-            _producer = producer;
-        }
+        //public RabbitMQEventBus(RabbitMQExtensions producer)
+        //{
+        //    _producer = producer;
+        //}
 
+        //public Task PublishAsync<T>(T @event) where T : IntegrationEvent
+        //{
+        //    return _producer.PublishAsync(@event);
+        //}
         public Task PublishAsync<T>(T @event) where T : IntegrationEvent
         {
-            return _producer.PublishAsync(@event);
+            throw new NotImplementedException();
         }
     }
 }

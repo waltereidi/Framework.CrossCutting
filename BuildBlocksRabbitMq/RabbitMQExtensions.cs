@@ -10,7 +10,7 @@ namespace BuildBlocksRabbitMq
 {
     public static class RabbitMQExtensions
     {
-        private static ConnectionFactory GetFactory(IConfiguration configuration)
+        private static ConnectionFactory GetConnectionFactory(IConfiguration configuration)
         {
             var hostname = configuration["RabbitMQ:HostName"]
                 ?? configuration["RabbitMQ:Host"]
@@ -38,7 +38,7 @@ namespace BuildBlocksRabbitMq
             {
                 //var logger = sp.GetRequiredService<ILogger<IConnection>>();
 
-
+                var factory = GetConnectionFactory(configuration);
                 
 
                 try
@@ -71,14 +71,16 @@ namespace BuildBlocksRabbitMq
                 var username = configuration["RabbitMQ:UserName"];
                 var password = configuration["RabbitMQ:Password"];
 
-                return new RabbitMQProducer(hostname, exchange, logger, username, password);
+                //return new RabbitMQProducer(hostname, exchange, logger, username, password);
+                return null;
             });
 
             // Register EventBus interface
             services.AddSingleton<IEventBus>(sp =>
             {
                 var producer = sp.GetRequiredService<RabbitMQProducer>();
-                return new RabbitMQEventBus(producer);
+                //return new RabbitMQEventBus(producer);
+                return null;
             });
 
             // Add Health Check
