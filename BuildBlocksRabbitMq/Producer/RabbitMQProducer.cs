@@ -1,121 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Exceptions;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BuildBlocksRabbitMq.Producer
 {
-    public static class RabbitMQProducer
+    public class RabbitMQProducer : IDisposable
     {
-        public static async Task<IServiceCollection> AddRabbitMQProducer( this IServiceCollection services, IConfiguration configuration)
+        public void Dispose()
         {
-            // Register RabbitMQ Connection as singleton
-            services.AddSingleton<Task<IConnection>>(async (sp) =>
-            {
-                //var logger = sp.GetRequiredService<ILogger<IConnection>>();
-                var hostname = configuration["RabbitMQ:HostName"]
-                                ?? configuration["RabbitMQ:Host"]
-                                ?? "localhost";
-                var username = configuration["RabbitMQ:UserName"];
-                var password = configuration["RabbitMQ:Password"];
-
-                var factory = new RabbitMQ.Client.ConnectionFactory
-                {
-                    HostName = hostname,
-                    AutomaticRecoveryEnabled = true,
-                    NetworkRecoveryInterval = TimeSpan.FromSeconds(10),
-                    RequestedHeartbeat = TimeSpan.FromSeconds(60),
-                    UserName = string.IsNullOrWhiteSpace(username) ? ConnectionFactory.DefaultUser : username,
-                    Password = string.IsNullOrWhiteSpace(password) ? ConnectionFactory.DefaultPass : password
-                };
-
-                try
-                {
-                    var connection = await factory.CreateConnectionAsync();
-                    //logger.LogInformation(
-                    //    "✅ [event-bus] Conexão RabbitMQ estabelecida - Host: {Host}",
-                    //    hostname);
-                    return connection;
-                }
-                catch (Exception ex)
-                {
-                    //logger.LogError(ex,
-                    //    "❌ [event-bus] Falha ao estabelecer conexão RabbitMQ em {Host}",
-                    //    hostname);
-                    throw;
-                }
-            });
-
-            // Register Producer
-            services.AddSingleton<RabbitMQProducer>( (sp) =>
-            {
-                var logger = sp.GetRequiredService<ILogger<RabbitMQProducer>>();
-                var hostname = configuration["RabbitMQ:HostName"]
-                                ?? configuration["RabbitMQ:Host"]
-                                ?? "localhost";
-                var exchange = configuration["RabbitMQ:ExchangeName"]
-                                ?? configuration["RabbitMQ:Exchange"]
-                                ?? "ecommerce.events";
-                var username = configuration["RabbitMQ:UserName"];
-                var password = configuration["RabbitMQ:Password"];
-
-                return new RabbitMQProducer(hostname, exchange, logger, username, password);
-            });
-
-            // Register EventBus interface
-            services.AddSingleton<IEventBus>(sp =>
-            {
-                var producer = sp.GetRequiredService<RabbitMQProducer>();
-                return new RabbitMQEventBus(producer);
-            });
-
-            // Add Health Check
-            services.AddHealthChecks()
-                .AddCheck<RabbitMQHealthCheck>(
-                    "rabbitmq",
-                    tags: new[] { "ready", "messaging" });
-
-            return services;
+            throw new NotImplementedException();
         }
-
-
-
-        //private void EnsureConnection()
-        //{
-        //    if (_connection?.IsOpen == true && _channel?.IsOpen == true)
-        //        return;
-
-        //    lock (_lock)
-        //    {
-        //        if (_connection?.IsOpen == true && _channel?.IsOpen == true)
-        //            return;
-
-        //        try
-        //        {
-        //            _connection?.Dispose();
-        //            _channel?.Dispose();
-
-        //            _connection = _factory.CreateConnection();
-        //            _channel = _connection.CreateModel();
-
-        //            _channel.ExchangeDeclare(
-        //                exchange: _exchangeName,
-        //                type: ExchangeType.Topic,
-        //                durable: true);
-
-        //            _logger.LogInformation(
-        //                "✅ [event-bus] Produtor RabbitMQ conectado - Exchange: {Exchange}",
-        //                _exchangeName);
-        //        }
-        //        catch (BrokerUnreachableException ex)
-        //        {
-        //            _logger.LogError(ex,
-        //                "❌ [event-bus] Falha ao conectar ao RabbitMQ em {HostName}",
-        //                _factory.HostName);
-        //            throw;
-        //        }
-        //    }
-        //}
     }
 }
