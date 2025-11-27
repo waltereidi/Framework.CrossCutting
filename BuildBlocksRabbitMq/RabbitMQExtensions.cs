@@ -1,4 +1,5 @@
-﻿using BuildBlocksRabbitMq.Events;
+﻿using BuildBlocksRabbitMq.Configuration;
+using BuildBlocksRabbitMq.Events;
 using BuildBlocksRabbitMq.Producer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,15 +32,15 @@ namespace BuildBlocksRabbitMq
 
         }
 
-        public static async Task<IServiceCollection> AddRabbitMQProducer( this IServiceCollection services, IConfiguration configuration)
+        public static async Task<IServiceCollection> AddRabbitMQProducer( this IServiceCollection services)
         {
             // Register RabbitMQ Connection as singleton
             services.AddSingleton(async (sp) =>
             {
                 //var logger = sp.GetRequiredService<ILogger<IConnection>>();
 
-                var factory = GetConnectionFactory(configuration);
-                
+                IConfiguration config = ConfigurationFactory.GetConfiguration();
+                var factory = GetConnectionFactory(config);
 
                 try
                 {
@@ -59,21 +60,21 @@ namespace BuildBlocksRabbitMq
             });
 
             // Register Producer
-            services.AddSingleton<RabbitMQProducer>( (sp) =>
-            {
-                //var logger = sp.GetRequiredService<ILogger<RabbitMQProducer>>();
-                var hostname = configuration["RabbitMQ:HostName"]
-                                ?? configuration["RabbitMQ:Host"]
-                                ?? "localhost";
-                var exchange = configuration["RabbitMQ:ExchangeName"]
-                                ?? configuration["RabbitMQ:Exchange"]
-                                ?? "ecommerce.events";
-                var username = configuration["RabbitMQ:UserName"];
-                var password = configuration["RabbitMQ:Password"];
+            //services.AddSingleton<RabbitMQProducer>( (sp) =>
+            //{
+            //    //var logger = sp.GetRequiredService<ILogger<RabbitMQProducer>>();
+            //    var hostname = configuration["RabbitMQ:HostName"]
+            //                    ?? configuration["RabbitMQ:Host"]
+            //                    ?? "localhost";
+            //    var exchange = configuration["RabbitMQ:ExchangeName"]
+            //                    ?? configuration["RabbitMQ:Exchange"]
+            //                    ?? "ecommerce.events";
+            //    var username = configuration["RabbitMQ:UserName"];
+            //    var password = configuration["RabbitMQ:Password"];
 
-                //return new RabbitMQProducer(hostname, exchange, logger, username, password);
-                return null;
-            });
+            //    //return new RabbitMQProducer(hostname, exchange, logger, username, password);
+            //    return null;
+            //});
 
             // Register EventBus interface
             services.AddSingleton<IEventBus>(sp =>

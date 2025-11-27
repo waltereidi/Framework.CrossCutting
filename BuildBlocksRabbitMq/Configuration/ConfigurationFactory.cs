@@ -5,18 +5,20 @@ using System.IO;
 namespace BuildBlocksRabbitMq.Configuration
 {
 
-    public static class ConfigurationFactory
+    public class ConfigurationFactory
     {
-        public static IConfiguration Create()
+        public static IConfiguration GetConfiguration()
         {
-            var builder = new ConfigurationBuilder()
-            {
-                BasePath = Directory.GetCurrentDirectory()
-            }
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            var basePath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.Parent.FullName, "BuildBlocksRabbitMq");
+            // Build a configuration object from JSON file
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-            IConfiguration config = builder.Build();
-
+            // Get a configuration section
+            
+            return config;
         }
     }
 }

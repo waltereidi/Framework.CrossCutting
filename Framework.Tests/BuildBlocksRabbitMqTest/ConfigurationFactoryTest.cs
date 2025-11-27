@@ -13,7 +13,7 @@ namespace Framework.Tests.BuildBlocksRabbitMqTest
         [Fact]
         public void TestConfigurationFactory()
         {
-            ConfigurationFactory.Create();
+            ConfigurationFactory.GetConfiguration();
         }
     }
 }
